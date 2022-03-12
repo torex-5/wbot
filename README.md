@@ -12,5 +12,4 @@
 <br />
 
 # Attention
-This branch is deprecated and cannot be used anymore, please use a new [multi-device](https://github.com/FaizBastomi/wbot/tree/multi-device) branch.<br />
-And for anyone who has cloned this branch please re-clone and use the default branch (multi-device).
+I recommended using new branch at [multi-device](https://github.com/FaizBastomi/wbot/tree/multi-device), this branch will no longer usable if WhatsApp pushing using a new WhatsApp Web (Multi-Device)
