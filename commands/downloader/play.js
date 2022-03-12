@@ -31,7 +31,7 @@ module.exports = {
                         + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
                     await eq.sendMessage(from, { url: res.thumb }, MessageType.image, { caption: capt, quoted: msg })
                 } else {
-                    await eq.sendMessage(from, { url: res.dl_link }, MessageType.audio, { mimetype: 'audio/mp4', quoted: msg })
+                    await eq.sendMessage(from, (await fetchBuffer(res.dl_link, { skipSSL: true })), MessageType.audio, { mimetype: 'audio/mp4', quoted: msg })
                 }
             } catch {
                 wa.reply(from, "Something wrong when sending the audio", msg)

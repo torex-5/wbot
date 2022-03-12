@@ -25,9 +25,9 @@ module.exports = {
                         let short = await fetchText(`https://tinyurl.com/api-create.php?url=${res.dl_link}`)
                         let capt = `*Title:* ${res.title}\n`
                             + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
-                        await eq.sendMessage(msg.from, (await fetchBuffer(res.thumb)), MessageType.image, { caption: capt, quoted: msg })
+                        await eq.sendMessage(msg.from, { url: res.thumb }, MessageType.image, { caption: capt, quoted: msg })
                     } else {
-                        await eq.sendMessage(msg.from, { url: res.dl_link }, MessageType.document, { mimetype: 'video/mp4', filename: res.title + ".mp4", quoted: msg })
+                        await eq.sendMessage(msg.from, (await fetchBuffer(res.dl_link, { skipSSL: true })), MessageType.document, { mimetype: 'video/mp4', filename: res.title + ".mp4", quoted: msg })
                     }
                     break
                 default:
@@ -35,10 +35,10 @@ module.exports = {
                         let short = await fetchText(`https://tinyurl.com/api-create.php?url=${res.dl_link}`)
                         let capt = `*Title:* ${res.title}\n`
                             + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
-                        await eq.sendMessage(msg.from, (await fetchBuffer(res.thumb)), MessageType.image, { caption: capt, quoted: msg })
+                        await eq.sendMessage(msg.from, { url: res.thumb }, MessageType.image, { caption: capt, quoted: msg })
                     } else {
                         let capt = `Title: ${res.title}\nSize: ${res.filesizeF}`
-                        await eq.sendMessage(msg.from, { url: res.dl_link }, MessageType.video, { mimetype: 'video/mp4', caption: capt, quoted: msg })
+                        await eq.sendMessage(msg.from, (await fetchBuffer(res.dl_link, { skipSSL: true })), MessageType.video, { mimetype: 'video/mp4', caption: capt, quoted: msg })
                     }
             }
         } catch (e) {
