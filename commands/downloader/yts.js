@@ -13,7 +13,7 @@ module.exports = {
         const b = await fetchBuffer(r[0].bestThumbnail.url)
         let txt = `YouTube Search\n   ~> Query: ${args.join(' ')}\n`
         for (let i = 0; i < r.length; i++) {
-            txt += `\n📙 Title: ${r[i].title}\n📎 Url: ${r[i].url}\n🚀 Upload: ${r[i].uploadedAt}\n`
+            txt += `\n📙 Title: ${r[i].title}\n📎 Url: ${r[i].url}\n🚀 Upload: ${r[i].ago}\n`
         }
         wa.custom(msg.from, b, MessageType.image, { caption: txt, detectLinks: false, quoted: msg })
     }

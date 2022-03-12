@@ -1,4 +1,4 @@
-const { ytv } = require('../../utils/youtube')
+const { yt } = require('../../utils/youtube')
 const { fetchText, textParse, fetchBuffer } = require('../../utils')
 const { MessageType } = require('@adiwajshing/baileys')
 const lang = require('../other/text.json')
@@ -17,23 +17,23 @@ module.exports = {
             if (!validateURL(url)) return wa.reply(msg.from, lang.eng.util.download.notYTURL, msg)
             wa.reply(msg.from, `IND:\n${lang.indo.util.download.progress}\n\nEN:\n${lang.eng.util.download.progress}`, msg)
 
-            const res = await ytv(url)
+            const res = await yt(url, "video")
             switch (opt) {
                 case "--doc":
-                    if (res.filesize >= 30 << 10) {
+                    if (res.size >= 30 << 10) {
                         let short = await fetchText(`https://tinyurl.com/api-create.php?url=${res.dl_link}`)
                         let capt = `*Title:* ${res.title}\n`
-                            + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.filesizeF}\n*Download:* ${short}\n\n_Filesize to big_`
+                            + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
                         await eq.sendMessage(msg.from, (await fetchBuffer(res.thumb)), MessageType.image, { caption: capt, quoted: msg })
                     } else {
                         await eq.sendMessage(msg.from, { url: res.dl_link }, MessageType.document, { mimetype: 'video/mp4', filename: res.title + ".mp4", quoted: msg })
                     }
                     break
                 default:
-                    if (res.filesize >= 30 << 10) {
+                    if (res.size >= 30 << 10) {
                         let short = await fetchText(`https://tinyurl.com/api-create.php?url=${res.dl_link}`)
                         let capt = `*Title:* ${res.title}\n`
-                            + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.filesizeF}\n*Download:* ${short}\n\n_Filesize to big_`
+                            + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
                         await eq.sendMessage(msg.from, (await fetchBuffer(res.thumb)), MessageType.image, { caption: capt, quoted: msg })
                     } else {
                         let capt = `Title: ${res.title}\nSize: ${res.filesizeF}`

@@ -1,4 +1,4 @@
-const { search, yta } = require('../../utils/youtube')
+const { search, yt } = require('../../utils/youtube')
 const { fetchBuffer, fetchText } = require('../../utils')
 const { MessageType } = require('@adiwajshing/baileys')
 const eq = require('../../core/connect').Whatsapp
@@ -13,7 +13,7 @@ module.exports = {
         const s = await search(args.join(' '), 'short')
         if (s.length === 0) return wa.reply(msg.from, "No video found for that keyword, try another keyword", msg)
         const b = await fetchBuffer(`https://i.ytimg.com/vi/${s[0].id}/0.jpg`)
-        const res = await yta(s[0].url)
+        const res = await yt(s[0].url, "audio")
         const struct = {
             locationMessage: { jpegThumbnail: b.toString("base64") },
             contentText: `📙 Title: ${s[0].title}\n📎 Url: ${s[0].url}\n🚀 Upload: ${s[0].uploadedAt}\n\nWant a video version? click button below, or you don\'t see it? type *!ytv youtube_url*\n\nAudio on progress....`,
@@ -25,10 +25,10 @@ module.exports = {
         }
         await eq.sendMessage(from, struct, MessageType.buttonsMessage, { quoted: msg }).then(async (msg) => {
             try {
-                if (res.filesize >= 10 << 10) {
+                if (res.size >= 10 << 10) {
                     let short = await fetchText(`https://tinyurl.com/api-create.php?url=${res.dl_link}`)
                     let capt = `*Title:* ${res.title}\n`
-                        + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.filesizeF}\n*Download:* ${short}\n\n_Filesize to big_`
+                        + `*ID:* ${res.id}\n*Quality:* ${res.q}\n*Size:* ${res.sizeF}\n*Download:* ${short}\n\n_Filesize to big_`
                     await eq.sendMessage(from, { url: res.thumb }, MessageType.image, { caption: capt, quoted: msg })
                 } else {
                     await eq.sendMessage(from, { url: res.dl_link }, MessageType.audio, { mimetype: 'audio/mp4', quoted: msg })

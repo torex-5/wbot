@@ -1,4 +1,4 @@
-const { WAConnection, Browsers } = require('@adiwajshing/baileys');
+const { WAConnection } = require('@adiwajshing/baileys');
 const fs = require('fs');
 
 const conn = new WAConnection();
@@ -9,6 +9,8 @@ exports.Whatsapp = conn;
 exports.connect = async () => {
   // Custom browser
   conn.browserDescription = ['Windows', 'Desktop', '3.0'];
+  // Version
+  conn.version = [2, 2208, 7];
 
   conn.on('open', () => {
     fs.writeFileSync('./Midnight.json', JSON.stringify(conn.base64EncodedAuthInfo(), null, '\t'));

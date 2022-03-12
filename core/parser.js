@@ -1,5 +1,5 @@
 const ev = require('./connect').Whatsapp
-const { WAMessageProto, MessageType } = require('@adiwajshing/baileys')
+const { WAMessageProto } = require('@adiwajshing/baileys')
 
 module.exports = {
     async buttonsParser(m) {
@@ -15,8 +15,6 @@ module.exports = {
         switch (context) {
             case "telegram bot":
                 await ev.sendMessage(from, "t.me/SecondMidnight_bot\nMy Telegram Bot\nThanks for using my bot.", "conversation", { detectLinks: false, quoted: e })
-                break;
-            case "":
                 break;
         }
     }
