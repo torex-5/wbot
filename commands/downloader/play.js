@@ -11,7 +11,7 @@ module.exports = {
         const { from } = msg
         if (args.length < 1) return wa.reply(from, 'No query given to search.', msg)
         const s = await search(args.join(' '), 'short')
-        if (s.length === 0) return wa.reply(msg.from, "No video found for that keyword, try another keyword", msg)
+        if (!s.length > 0) return wa.reply(msg.from, "No video found for that keyword, try another keyword", msg)
         const b = await fetchBuffer(`https://i.ytimg.com/vi/${s[0].id}/0.jpg`)
         const res = await yt(s[0].url, "audio")
         const struct = {

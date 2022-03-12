@@ -10,7 +10,7 @@ module.exports = {
     async execute(msg, wa, args) {
         if (args.length < 1) return wa.reply(msg.from, 'No query given to search.', msg)
         const r = await search(args.join(' '), 'long')
-        const b = await fetchBuffer(r[0].bestThumbnail.url)
+        const b = await fetchBuffer(r[0].thumbnail)
         let txt = `YouTube Search\n   ~> Query: ${args.join(' ')}\n`
         for (let i = 0; i < r.length; i++) {
             txt += `\n📙 Title: ${r[i].title}\n📎 Url: ${r[i].url}\n🚀 Upload: ${r[i].ago}\n`

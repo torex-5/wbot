@@ -18,6 +18,7 @@ module.exports = {
             wa.reply(msg.from, `IND:\n${lang.indo.util.download.progress}\n\nEN:\n${lang.eng.util.download.progress}`, msg)
 
             const res = await yt(url, "audio")
+            if (res === "no_file") return wa.reply(msg.from, "No download url found, try another link?", msg);
             switch (opt) {
                 case "--doc":
                     if (res.size >= 15 << 10) {
