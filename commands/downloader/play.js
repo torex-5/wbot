@@ -12,11 +12,11 @@ module.exports = {
         if (args.length < 1) return wa.reply(from, 'No query given to search.', msg)
         const s = await search(args.join(' '), 'short')
         if (!s.length > 0) return wa.reply(msg.from, "No video found for that keyword, try another keyword", msg)
-        const b = await fetchBuffer(`https://i.ytimg.com/vi/${s[0].id}/0.jpg`)
+        const b = await fetchBuffer(`https://i.ytimg.com/vi/${s[0].videoId}/0.jpg`)
         const res = await yt(s[0].url, "audio")
         const struct = {
             locationMessage: { jpegThumbnail: b.toString("base64") },
-            contentText: `📙 Title: ${s[0].title}\n📎 Url: ${s[0].url}\n🚀 Upload: ${s[0].uploadedAt}\n\nWant a video version? click button below, or you don\'t see it? type *!ytv youtube_url*\n\nAudio on progress....`,
+            contentText: `📙 Title: ${s[0].title}\n📎 Url: ${s[0].url}\n🚀 Upload: ${s[0].ago}\n\nWant a video version? click button below, or you don\'t see it? type *!ytv youtube_url*\n\nAudio on progress....`,
             footerText: 'Kaguya PublicBot ⬩ Made by FaizBastomi',
             headerType: 6,
             buttons: [

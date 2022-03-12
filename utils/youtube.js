@@ -46,7 +46,7 @@ const yt = (url, type) => new Promise(async (resolve, reject) => {
             "accept-language": "id,en-US;q=0.9,en;q=0.8,es;q=0.7,ms;q=0.6"
         }
     });
-    if (!postData?.links?.mp4["18"] || !postData?.links?.mp3["mp3128"]) return "no_file";
+    if (!postData?.links?.mp4["18"] || !postData?.links?.mp3["mp3128"]) resolve("no_file");
     let { data: convertData } = await ax.post("https://yt1s.com/api/ajaxConvert/convert", new URLSearchParams(
         Object.entries({
             vid: postData?.vid, k: type === "audio" ? postData?.links?.mp3["mp3128"]["k"] : postData?.links?.mp4["18"]["k"]
